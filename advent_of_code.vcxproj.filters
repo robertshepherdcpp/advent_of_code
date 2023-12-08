@@ -18,6 +18,9 @@
     <ClCompile Include="day_one.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="day_eight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="day_one_input.txt" />
