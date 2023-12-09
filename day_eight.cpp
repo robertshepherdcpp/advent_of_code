@@ -46,7 +46,7 @@ struct key_double_value
         while (current_value != "ZZZ")
         {
             number_of_moves += 1;
-            int int_value = list[count] - '0';
+            int int_value = (list[count] - '0') + 1;
             current_value = key_values[current_key][int_value];
             for (int i = 0; i < key_values.size(); i++)
             {
