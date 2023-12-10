@@ -3,9 +3,15 @@
 #include<utility>
 #include<vector>
 #include<iomanip>
+#include<fstream>
 
 struct key_double_value
 {
+    key_double_value(std::vector<std::vector<std::string>>& vec)
+    {
+        key_values = vec;
+    }
+
     auto lookup_value(std::string s) -> std::pair<std::string, std::string>
     {
         for (int i = 0; i < key_values.size(); i++)
@@ -78,6 +84,19 @@ struct key_double_value
 
 int main()
 {
+    std::vector<std::vector<std::string>> my_vec{};
+    std::ifstream file("day_eight_input.txt");
+    std::string line;
+    while (std::getline(file, line)) {
+        std::string key{};
+        key = line.substr(0, 2);
+        std::string value_one{};
+        value_one = line.substr(7, 9);
+        std::string value_two{};
+        value_two = line.substr(12, 14);
+        my_vec.push_back(std::vector<std::string>{key, value_one, value_two});
+    }
+    file.close();
     // this should print 2 as it is only a right move then another right move.
-    std::cout << key_double_value{}.find_min_amount_of_moves("RR") << "\n";
+    std::cout << key_double_value{my_vec}.find_min_amount_of_moves("LRLLLRRLRRLRRLRRLLRRLRRLLRRRLLRRLRRLRRLRRLRLRLLLLLRRLRRLLRLRRRLLRRLRLLLLLLLRRLRLRRRLRRLRRRLRRLLLRRLLRRRLLRRRLRRLRLRRRLRRRLRLRLLRRRLRRRLRRLLRRRLRLRRLLRLLRRLLRRLRRRLRRLRLRRLLRRRLRRRLRRRLRLRLRLRRRLLRRRLRLRRLLRRLRRLRRLRLLRRLLRRRLRRRLRRLRRLRLLRRLRLRRLRRRLRRRLRRLRLRRRLRRRLRLLLRRLRLLRRRR") << "\n";
 }
