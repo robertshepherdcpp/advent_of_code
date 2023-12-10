@@ -74,12 +74,12 @@ auto day_one(std::vector<std::string> document) -> int
 	return total;
 }
 
-int main()
-{
-	std::ifstream is("day_one_input.txt");
-	std::istream_iterator<std::string> start(is), end;
-	std::vector<std::string> vec(start, end);
-	int total = day_one(vec);
-	std::cout << total << "\n";
-	return total;
-}
+//int main()
+//{
+//	std::ifstream is("day_one_input.txt");
+//	std::istream_iterator<std::string> start(is), end;
+//	std::vector<std::string> vec(start, end);
+//	int total = day_one(vec);
+//	std::cout << total << "\n";
+//	return total;
+//}
