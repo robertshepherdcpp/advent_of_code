@@ -18,7 +18,7 @@ struct key_double_value
         {
             if (key_values[i][0] == s)
             {
-                std::pair<std::string, std::string> p = std::pair{ key_values[i][1], key_values[i][2] };
+                std::pair<std::string, std::string> p = std::pair<std::string, std::string>{ key_values[i][1], key_values[i][2] };
                 return p;
             }
         }
