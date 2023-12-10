@@ -131,6 +131,7 @@
     <ClCompile Include="day_one.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="day_eight_input.txt" />
     <Text Include="day_one_input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
