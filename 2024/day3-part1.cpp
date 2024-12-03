@@ -15,18 +15,21 @@ int main()
         while(shortened.find("mul(") != -1)
         {
             int index = shortened.find("mul");
-            std::string temp = shortened.substr(index, shortened.size());
+            std::string temp = shortened.substr(index);
 
             // first number
-            int first_number_index = temp.find(",") + index;
-            std::string first_number = shortened.substr(index, first_number_index);
+            int first_number_index = temp.find('(') + 1;
+            int comma_index = temp.find(',');
+            std::string first_number = temp.substr(first_number_index, comma_index - first_number_index);
+            std::cout << first_number << "\n";
 
             // second number
-            int second_number_index = first_number_index + 1;
+            int second_number_index = comma_index + 1;
             int bracket_index = temp.find(")");
-            std::string second_number = shortened.substr(second_number_index, bracket_index);
+            std::string second_number = temp.substr(second_number_index, bracket_index - second_number_index);
+            std::cout << second_number << "\n";
 
-            shortened = shortened.substr(index + 4, shortened.size());
+            shortened = temp.substr(first_number_index + 1);
             int first_number_val = 0;
             int second_number_val = 0;
             bool are_valid = true;
