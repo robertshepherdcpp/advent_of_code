@@ -11,10 +11,19 @@ auto split_string(std::string s) -> std::vector<std::string>
     int last_index = 0;
     for(int i = 0; i < s.size(); i++)
     {
-        if(i == ' ')
+        if(s[i] == ' ')
         {
             result.push_back(s.substr(last_index, i - last_index));
             last_index = i + 1;
+        }
+    }
+    bool finished = false;
+    for(int i = s.size() - 1; i > 0 && !finished; i--)
+    {
+        if(s[i] == ' ')
+        {
+            result.push_back(s.substr(i, s.size()));
+            finished = true;
         }
     }
     return result;
@@ -38,11 +47,11 @@ auto integer_to_binary(int n, int length) -> std::string
         binary = (n % 2 == 0 ? "0" : "1") + binary;
         n /= 2;
     }
-    return binary;
     if(binary.size() < length)
     {
         binary = number_of(length - binary.size(), '0') + binary;
     }
+    return binary;
 }
 
 int maximum_number(int size)
@@ -60,6 +69,8 @@ int main()
     std::vector<std::pair<int, std::vector<int>>> vec{};
 
     int overall_total = 0;
+    
+    // std::map<int, int> counts{};
 
     std::string line{};
     while(std::getline(std::cin, line) && line != "ENDOFLINE" && line != "")
@@ -68,6 +79,9 @@ int main()
         int test_value_val = std::stoi(test_value);
 
         std::vector<std::string> operands = split_string(line.substr(line.find(":") + 2, line.size()));
+        std::cout << "\n";
+        for(auto x : operands) {std::cout << x << ", ";}
+        std::cout << "\n";
         // now turn these strings into integers
         std::vector<int> operands_ints{};
         for(auto x : operands)
@@ -81,7 +95,8 @@ int main()
 
         // we start of with
         int maximum_number_val = maximum_number(operands_ints.size() - 1);
-        for(int i = 0; i < maximum_number_val; i++)
+        bool finished = false;
+        for(int i = 0; i < maximum_number_val && !finished; i++)
         {
             std::string str = integer_to_binary(i, operands_ints.size() - 1);
             // now convert this into pluses and minuses
@@ -98,27 +113,22 @@ int main()
             }
 
             // now that weve got the expression we need to execute it.
-            int total_count = 0;
-            for(int j = 0; j < expression.size(); j++)
+            int total_count = std::stoi(expression[0]);
+            for (int j = 1; j < expression.size(); j += 2) // Skip to operators
             {
-                if(expression[j] == "+")
+                if (expression[j] == "+")
                 {
                     total_count += std::stoi(expression[j + 1]);
-                    j += 1;
                 }
-                else if(expression[j] == "*")
+                else if (expression[j] == "*")
                 {
                     total_count *= std::stoi(expression[j + 1]);
-                    j += 1;
-                }
-                else {
-                    // its a number.
-                    total_count = std::stoi(expression[j]);
                 }
             }
             if(total_count == test_value_val)
             {
                 overall_total += total_count;
+                finished = true;
             }
         }
     }
