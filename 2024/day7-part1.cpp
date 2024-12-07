@@ -96,7 +96,7 @@ int main()
         // we start of with
         int maximum_number_val = maximum_number(operands_ints.size() - 1);
         bool finished = false;
-        for(int i = 0; i < maximum_number_val && !finished; i++)
+        for(int i = 0; i < maximum_number_val + 1 && !finished; i++)
         {
             std::string str = integer_to_binary(i, operands_ints.size() - 1);
             // now convert this into pluses and minuses
@@ -110,6 +110,11 @@ int main()
                     expression.push_back(to_sign(str[v]));
                 }
                 v++;
+            }
+            
+            if(test_value_val == 190)
+            {
+                std::cout << "binary" << str << "\n";
             }
 
             // now that weve got the expression we need to execute it.
@@ -127,6 +132,7 @@ int main()
             }
             if(total_count == test_value_val)
             {
+                std::cout << "\nadding " << total_count << "\n";
                 overall_total += total_count;
                 finished = true;
             }
