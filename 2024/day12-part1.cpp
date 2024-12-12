@@ -51,6 +51,40 @@ auto all_options(int value, std::pair<int, int> pos, std::vector<std::vector<cha
     return result;
 }
 
+auto all_options(int value, std::pair<int, int> pos, std::vector<std::vector<int>>& grid)
+{
+    int count = 0;
+    if(pos.first > 0)
+    {
+        if(grid[pos.first - 1][pos.second] == value)
+        {
+            count += 1;
+        }
+    }
+    if(pos.first < grid.size() - 1)
+    {
+        if(grid[pos.first + 1][pos.second] == value)
+        {
+            count += 1;
+        }
+    }
+    if(pos.first > 0)
+    {
+        if(grid[pos.first][pos.second - 1] == value)
+        {
+            count += 1;
+        }
+    }
+    if(pos.first < grid[0].size() - 1)
+    {
+        if(grid[pos.first][pos.second + 1] == value)
+        {
+            count += 1;
+        }
+    }
+    return count; 
+}
+
 template<typename T>
 auto my_find(std::vector<T>& vec, T value)
 {
@@ -153,4 +187,53 @@ int main()
     alotments.erase(std::unique(alotments.begin(), alotments.end()), alotments.end());
 
     // now that we have our individual alotments, we need find the prices of the fences for them.
+    // so we know the area
+    int total_cost = 0;
+    for(auto x : alotments)
+    {
+        int cost = alotments.size(); // we already know this.
+        // now we need to put this all in a grid.
+        std::vector<std::vector<int>> binary_grid{};
+        for(int i = 0; i < grid.size(); i++)
+        {
+            std::vector<int> current_vector{};
+            for(int j = 0; j < grid[0].size(); j++)
+            {
+                if(my_find(x, std::pair{i, j}) == -1)
+                {
+                    current_vector.push_back(0);
+                }
+                else {
+                    current_vector.push_back(1);
+                }
+            }
+            binary_grid.push_back(current_vector);
+        }
+        // after weve got the binary grid, we need to get perimeter.
+        int perimeter = 0;
+        for(int i = 0; i < binary_grid.size(); i++)
+        {
+            for(int j = 0; j < binary_grid[0].size(); j++)
+            {
+                if(all_options(1, std::pair{i, j}, binary_grid) == 1)
+                {
+                    perimeter += 3;
+                }
+                else if(all_options(1, std::pair{i, j}, binary_grid) == 2)
+                {
+                    perimeter += 2;
+                }
+                else if(all_options(1, std::pair{i, j}, binary_grid) == 3)
+                {
+                    perimeter += 1;
+                }
+                else {
+                    // we do nothing as it doesnt have a permimeter
+                }
+            }
+        }
+        cost *= perimeter;
+        total_cost += cost;
+    }
+    std::cout << "Total cost: " << total_cost << "\n";
 }
