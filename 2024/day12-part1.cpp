@@ -113,6 +113,8 @@ int main()
         }
         grid.push_back(current);
     }
+    
+    std::cout << "finished input\n";
 
     // then we need to seperate the things into alotments
     std::vector<std::vector<std::pair<int, int>>> alotments{};
@@ -152,6 +154,10 @@ int main()
                     if(now_available.size() == 0)
                     {
                         options.pop_back();
+                        if(options.size() == 0)
+                        {
+                            all_explored = true;
+                        }
                     }
                     else if(now_available.size() == 1){
                         if(my_find(explored, current) == -1)
@@ -159,6 +165,10 @@ int main()
                             current = now_available[0];
                         }
                         options.pop_back();
+                        if(options.size() == 0)
+                        {
+                            all_explored = true;
+                        }
                     }
                     else {
                         for(int i = 0; i < options.size(); i++)
